@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Pulse</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="dashboard">
+      <header class="topbar">
+        <div class="title-block">
+          <p class="eyebrow">Contributor snapshot</p>
+          <h1>Project Pulse</h1>
+        </div>
+        <div class="header-stats" aria-label="Project overview statistics">
+          <div class="stat-pill">
+            <span class="stat-label">Active</span>
+            <strong id="active-count">0</strong>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-label">High priority</span>
+            <strong id="priority-count">0</strong>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-label">Status</span>
+            <strong>Healthy</strong>
+          </div>
+        </div>
+      </header>
+
+      <section class="overview-grid" aria-label="Project summary overview">
+        <div class="overview-card accent-blue">
+          <span class="overview-label">Portfolio health</span>
+          <strong>92%</strong>
+          <small>Delivery confidence</small>
+        </div>
+        <div class="overview-card accent-purple">
+          <span class="overview-label">Team cadence</span>
+          <strong>18 updates</strong>
+          <small>Across the last 7 days</small>
+        </div>
+        <div class="overview-card accent-green">
+          <span class="overview-label">Launch window</span>
+          <strong>2 milestones</strong>
+          <small>Next up this month</small>
+        </div>
+      </section>
+
+      <main>
+        <div class="section-heading">
+          <h2>Current projects</h2>
+          <span class="muted">Updated this morning</span>
+        </div>
+        <div id="project-list" class="project-grid" aria-live="polite"></div>
+      </main>
+    </div>
+
+    <script>
+      async function loadProjects() {
+        const response = await fetch('project-data.json');
+        const data = await response.json();
+        const list = document.getElementById('project-list');
+
+        if (!data.projects || !Array.isArray(data.projects)) {
+          list.innerHTML = '<p class="empty-state">Project data is unavailable.</p>';
+          return;
+        }
+
+        const activeCount = data.projects.length;
+        const priorityCount = data.projects.filter((project) =>
+          project.priority && project.priority.toLowerCase().includes('high')
+        ).length;
+
+        document.getElementById('active-count').textContent = String(activeCount);
+        document.getElementById('priority-count').textContent = String(priorityCount);
+
+        list.innerHTML = data.projects
+          .map((project) => {
+            const statusKey = (project.status || 'On track').toLowerCase().replace(/\s+/g, '-');
+            const priorityKey = (project.priority || 'Medium').toLowerCase().replace(/\s+/g, '-');
+            const summary =
+              project.summary ||
+              'The team is aligned on milestones and continues to ship steady progress.';
+
+            return `
+              <article class="project-card">
+                <div class="project-header">
+                  <div>
+                    <p class="project-owner">${project.owner}</p>
+                    <h3>${project.name}</h3>
+                  </div>
+                  <span class="status-badge status-${statusKey}">${project.status}</span>
+                </div>
+
+                <p class="project-summary">${summary}</p>
+
+                <dl class="project-meta">
+                  <div>
+                    <dt>Recent activity</dt>
+                    <dd>${project.recentActivity}</dd>
+                  </div>
+                  <div>
+                    <dt>Priority</dt>
+                    <dd class="priority priority-${priorityKey}">${project.priority}</dd>
+                  </div>
+                </dl>
+              </article>
+            `;
+          })
+          .join('');
+      }
+
+      loadProjects();
+    </script>
+  </body>
+</html>

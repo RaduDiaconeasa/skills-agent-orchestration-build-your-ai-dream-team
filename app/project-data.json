@@ -1,0 +1,52 @@
+{
+  "projects": [
+    {
+      "name": "Northstar Launch",
+      "owner": "Alicia Chen",
+      "status": "On track",
+      "recentActivity": "Final QA pass and release checklist circulated to support",
+      "priority": "High",
+      "summary": "The rollout is moving smoothly with training assets and launch readiness checks nearly complete."
+    },
+    {
+      "name": "Atlas Data Sync",
+      "owner": "Marcus Diaz",
+      "status": "In progress",
+      "recentActivity": "Connected new warehouse feed and validated cross-region reconciliation",
+      "priority": "Medium",
+      "summary": "Integration work is underway, with the team focused on reducing sync lag and validating edge cases."
+    },
+    {
+      "name": "Beacon Mobile",
+      "owner": "Priya Shah",
+      "status": "Review",
+      "recentActivity": "Accessibility review closed and onboarding flow is being refined",
+      "priority": "High",
+      "summary": "The mobile experience is in review with design and product, aiming for a simpler first-run experience."
+    },
+    {
+      "name": "Harbor Insights",
+      "owner": "Ethan Brooks",
+      "status": "On track",
+      "recentActivity": "Forecast model refreshed and leadership dashboard placeholders were polished",
+      "priority": "Low",
+      "summary": "Reporting quality is improving steadily with a lighter backlog and strong stakeholder feedback."
+    },
+    {
+      "name": "Cedar AI Copilot",
+      "owner": "Nina Patel",
+      "status": "At risk",
+      "recentActivity": "Prompt tuning is still pending after reliability regressions in two workflows",
+      "priority": "High",
+      "summary": "The team is tightening guardrails and triaging failing prompts to stabilize the assistant experience."
+    },
+    {
+      "name": "Ember Support Desk",
+      "owner": "Jules Morgan",
+      "status": "Monitoring",
+      "recentActivity": "Ticket volume dropped after the new triage rules were deployed",
+      "priority": "Medium",
+      "summary": "Support workflows remain stable, with attention concentrated on reducing backlog and monitoring trends."
+    }
+  ]
+}
